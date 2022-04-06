@@ -1,0 +1,71 @@
+DEFINITION MODULE interpen ;  (*!m2pim+gm2*)
+
+(*
+    Title      : interpen
+    Author     : Gaius Mulley
+    System     : GNU Modula-2
+    Date       : Tue Dec 18 21:08:38 2018
+    Revision   : $Version$
+    Description: provides a module to perform fundamental interpen tests.
+*)
+
+FROM coord IMPORT Coord ;
+FROM segment IMPORT Segment ;
+FROM history IMPORT whereHit ;
+
+TYPE
+   interCircle = RECORD
+                    radius: REAL ;
+                    center: Coord ;
+                 END ;
+
+
+(*
+   segmentCollide - returns TRUE if segment, a, overlaps with, b.
+                    If true is returned then, p, will be set to
+                    the intersection point.  ata, atb determine where segment, a,
+                    and segment, b, hit (corner or edge).  If ata = corner then
+                    ptna is either 0 or 1 representing the point which collided.
+                    Likewise if atb = corner then
+                    ptna is either 0 or 1 representing the point which collided.
+*)
+
+PROCEDURE segmentsCollide (a, b: Segment;
+                           VAR p: Coord; VAR ata, atb: whereHit; VAR ptna, ptnb: CARDINAL) : BOOLEAN ;
+
+
+(*
+   circleCollide - return TRUE if circles, a, b, collide.
+*)
+
+PROCEDURE circleCollide (a, b: interCircle) : BOOLEAN ;
+
+
+(*
+   circleSegmentCollide - Pre-condition:  interCirle, c, and Segment, s, are well formed.
+                          Post-condition:  return TRUE if circle, c, collides with segment, s.
+                          If true is returned then the, point, on the line in deepest collision
+                          with the circle is filled in and likewise, at, is set to corner or edge.
+                          Indicating which part of the segment collides with the circle.
+                          ptn will be set to 0 if point1 of the segment collides with the circle.
+                          ptn will be set to 1 if point2 of the segment collides with the circle.
+*)
+
+PROCEDURE circleSegmentCollide (c: interCircle; s: Segment; VAR point: Coord; VAR at: whereHit; VAR ptn: CARDINAL) : BOOLEAN ;
+
+
+(*
+   initCircle -
+*)
+
+PROCEDURE initCircle (radius: REAL; point: Coord) : interCircle ;
+
+
+(*
+   unitTest -
+*)
+
+PROCEDURE unitTest ;
+
+
+END interpen.

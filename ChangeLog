@@ -1,0 +1,575 @@
+2020-09-18      Gaius Mulley <gaius.mulley@southwales.ac.uk>
+
+	* regenerated all C files.
+	* use gm2-10.2.1
+	* m2/Makefile.am:  tidied up and detect Python path.  Use gm2-10.2.1
+	* c/Makefile.am:  tidied up and detect Python path.  Use
+	gm2-10.2.1
+	* no longer use pth and as coroutines now uses gcc -lpthreads.
+
+2020-01-17      Gaius Mulley <gaius.mulley@southwales.ac.uk>
+
+	* pgeplayback:  changed to Python3.
+	* python/fig.py:  changed to Python3.
+	* python/max2code.py:  changed to Python3.
+	* python/mxmmaxima.py:  changed to Python3.
+	* python/mxmout.py:  changed to Python3.
+	* python/mxmparser.py:  changed to Python3.
+	* python/mxmstack.py:  changed to Python3.
+	* python/mxmtree.py:  changed to Python3.
+	* python/pge.py:  changed to Python3.
+	* python/pgeplayback.py:  changed to Python3.
+	* python/pgepygame.py:  changed to Python3.
+
+2020-01-10      Gaius Mulley <gaius.mulley@southwales.ac.uk>
+
+	* changed all examples to Python3.
+	* changed documentation to Python3.
+
+2020-01-06      Gaius Mulley <gaius.mulley@southwales.ac.uk>
+
+	* Makefile.am:  changed compiler from 8.2.0 to 9.1.0.
+	* c/Makefile.am:  changed compiler from 8.2.0 to 9.1.0.
+	* examples/bagatelle/bagatelle.py:  changed to Python3.
+	* examples/breakout/breakout.py:  changed to Python3.
+	* examples/cannon/cannon.py:  changed to Python3.
+	* examples/frozenbubble/frozenbubble.py:  changed to Python3.
+	* examples/kong/trapped.py:  changed to Python3.
+	* examples/matchsticks/matchsticks.py:  changed to Python3.
+	* examples/rotation/rotation.py:  changed to Python3.
+	* examples/snooker/snooker.py:  changed to Python3.
+	* examples/springs/bounce.py:  changed to Python3.
+	* examples/springs/boxes-break.py:  changed to Python3.
+	* examples/springs/boxes.py:  changed to Python3.
+	* examples/springs/bridge.py:  changed to Python3.
+	* examples/springs/catapult.py:  changed to Python3.
+	* examples/springs/double.py:  changed to Python3.
+	* examples/springs/gravity.py:  changed to Python3.
+	* examples/springs/madness.py:  changed to Python3.
+	* examples/springs/ramps.py:  changed to Python3.
+	* examples/springs/simple.py:  changed to Python3.
+	* examples/springs/swing.py:  changed to Python3.
+	* examples/springs/tiny.py:  changed to Python3.
+	* examples/springs/tinyfall.py:  changed to Python3.
+	* examples/springs/tinyfall2.py:  changed to Python3.
+	* examples/springs/treble.py:  changed to Python3.
+	* examples/springs/unequal.py:  changed to Python3.
+	* examples/test/test.py:  changed to Python3.
+	* examples/trapped/trapped.py:  changed to Python3.
+	* i/pgeif.i:  strings are returned as bytes for Python3.
+	* localrun.sh.in:  changed to use Python3.
+	* m2/Makefile.am:  changed compiler from 8.2.0 to 9.1.0.
+	* m2/Makefile.in:  regerated.
+	* m2/rotation.mod:  updated dates.
+	* m2/twoDsim.mod:  updated dates.
+	* python/fig.py:  changed to Python3.
+	* python/max2code.py:  changed to Python3.
+	* python/mxmmaxima.py:  changed to Python3.
+	* python/mxmout.py:  changed to Python3.
+	* python/mxmparser.py:  changed to Python3.
+	* python/mxmtree.py:  changed to Python3.
+	* python/pge.py:  changed to Python3.
+	* python/pgeplayback.py:  changed to Python3.
+	* python/pgepygame.py:  changed to Python3.
+	* version.c:  updated to 4.0.
+	* removed all output.raw files.
+	* removed all *.pyc files.
+	* Makefile.am:  do not install pyc files.
+	* c/ASCII.c:  regenerated.
+	* c/Assertion.c:  regenerated.
+	* c/COROUTINES.c:  regenerated.
+	* c/ChanConsts.c:  regenerated.
+	* c/CharClass.c:  regenerated.
+	* c/ClientSocket.c:  regenerated.
+	* c/DynamicStrings.c:  regenerated.
+	* c/EXCEPTIONS.c:  regenerated.
+	* c/FIO.c:  regenerated.
+	* c/FormatStrings.c:  regenerated.
+	* c/Fractions.c:  regenerated.
+	* c/GASCII.h:  regenerated.
+	* c/GAssertion.h:  regenerated.
+	* c/GC.c:  regenerated.
+	* c/GCOROUTINES.h:  regenerated.
+	* c/GChanConsts.h:  regenerated.
+	* c/GCharClass.h:  regenerated.
+	* c/GClientSocket.h:  regenerated.
+	* c/GDynamicStrings.h:  regenerated.
+	* c/GEXCEPTIONS.h:  regenerated.
+	* c/GFIO.h:  regenerated.
+	* c/GFormatStrings.h:  regenerated.
+	* c/GFractions.h:  regenerated.
+	* c/GGC.h:  regenerated.
+	* c/GIO.h:  regenerated.
+	* c/GIOChan.h:  regenerated.
+	* c/GIOConsts.h:  regenerated.
+	* c/GIndexing.h:  regenerated.
+	* c/GM2EXCEPTION.h:  regenerated.
+	* c/GM2RTS.h:  regenerated.
+	* c/GMathLib0.h:  regenerated.
+	* c/GMemStream.h:  regenerated.
+	* c/GNetworkOrder.h:  regenerated.
+	* c/GNumberIO.h:  regenerated.
+	* c/GPoints.h:  regenerated.
+	* c/GPolyMatrix3D.h:  regenerated.
+	* c/GRTExceptions.h:  regenerated.
+	* c/GRTentity.h:  regenerated.
+	* c/GRTgenif.h:  regenerated.
+	* c/GRTint.h:  regenerated.
+	* c/GRawIO.h:  regenerated.
+	* c/GSTextIO.h:  regenerated.
+	* c/GSWholeIO.h:  regenerated.
+	* c/GSYSTEM.h:  regenerated.
+	* c/GSelective.h:  regenerated.
+	* c/GSeqFile.h:  regenerated.
+	* c/GStdIO.h:  regenerated.
+	* c/GStorage.h:  regenerated.
+	* c/GStrIO.h:  regenerated.
+	* c/GStrLib.h:  regenerated.
+	* c/GStringConvert.h:  regenerated.
+	* c/GStrings.h:  regenerated.
+	* c/GSysExceptions.h:  regenerated.
+	* c/GTransform3D.h:  regenerated.
+	* c/Gcbuiltin.h:  regenerated.
+	* c/Gcoord.h:  regenerated.
+	* c/Gdelay.h:  regenerated.
+	* c/GdeviceGroff.h:  regenerated.
+	* c/GdeviceIf.h:  regenerated.
+	* c/GdevicePy.h:  regenerated.
+	* c/Gdtoa.h:  regenerated.
+	* c/Gerrno.h:  regenerated.
+	* c/Ggdbif.h:  regenerated.
+	* c/Ghistory.h:  regenerated.
+	* c/Ginterpen.h:  regenerated.
+	* c/Gldtoa.h:  regenerated.
+	* c/Glibc.h:  regenerated.
+	* c/Glibm.h:  regenerated.
+	* c/GmacroObjects.h:  regenerated.
+	* c/Gpgeif.h:  regenerated.
+	* c/Gpolar.h:  regenerated.
+	* c/GpopWorld.h:  regenerated.
+	* c/Gpth.h:  regenerated.
+	* c/Groots.h:  regenerated.
+	* c/Grpc.h:  regenerated.
+	* c/Gsegment.h:  regenerated.
+	* c/Gtermios.h:  regenerated.
+	* c/GtwoDsim.h:  regenerated.
+	* c/IO.c:  regenerated.
+	* c/IOChan.c:  regenerated.
+	* c/IOConsts.c:  regenerated.
+	* c/Indexing.c:  regenerated.
+	* c/M2EXCEPTION.c:  regenerated.
+	* c/M2RTS.c:  regenerated.
+	* c/Makefile.in:  regenerated.
+	* c/MathLib0.c:  regenerated.
+	* c/MemStream.c:  regenerated.
+	* c/NetworkOrder.c:  regenerated.
+	* c/NumberIO.c:  regenerated.
+	* c/Points.c:  regenerated.
+	* c/PolyMatrix3D.c:  regenerated.
+	* c/RTExceptions.c:  regenerated.
+	* c/RTentity.c:  regenerated.
+	* c/RTgen.c:  regenerated.
+	* c/RTgenif.c:  regenerated.
+	* c/RTint.c:  regenerated.
+	* c/RawIO.c:  regenerated.
+	* c/STextIO.c:  regenerated.
+	* c/SWholeIO.c:  regenerated.
+	* c/SeqFile.c:  regenerated.
+	* c/StdIO.c:  regenerated.
+	* c/Storage.c:  regenerated.
+	* c/StrIO.c:  regenerated.
+	* c/StrLib.c:  regenerated.
+	* c/StringConvert.c:  regenerated.
+	* c/Strings.c:  regenerated.
+	* c/Transform3D.c:  regenerated.
+	* c/bagatelle.c:  regenerated.
+	* c/bounce.c:  regenerated.
+	* c/bounce2.c:  regenerated.
+	* c/bounce3.c:  regenerated.
+	* c/bounce4.c:  regenerated.
+	* c/bounce5.c:  regenerated.
+	* c/boxes.c:  regenerated.
+	* c/circle.c:  regenerated.
+	* c/coord.c:  regenerated.
+	* c/delay.c:  regenerated.
+	* c/deviceGroff.c:  regenerated.
+	* c/deviceIf.c:  regenerated.
+	* c/elc.c:  regenerated.
+	* c/elc2.c:  regenerated.
+	* c/foo.c:  regenerated.
+	* c/gdbif.c:  regenerated.
+	* c/history.c:  regenerated.
+	* c/interpen.c:  regenerated.
+	* c/line.c:  regenerated.
+	* c/macroObjects.c:  regenerated.
+	* c/npn.c:  regenerated.
+	* c/para.c:  regenerated.
+	* c/pgeif.c:  regenerated.
+	* c/polar.c:  regenerated.
+	* c/popWorld.c:  regenerated.
+	* c/ramps.c:  regenerated.
+	* c/ramps2.c:  regenerated.
+	* c/rboxes.c:  regenerated.
+	* c/roots.c:  regenerated.
+	* c/rpc.c:  regenerated.
+	* c/segment.c:  regenerated.
+	* c/slope.c:  regenerated.
+	* c/snooker.c:  regenerated.
+	* c/stairs.c:  regenerated.
+	* c/test.c:  regenerated.
+	* c/testpy.c:  regenerated.
+	* c/twoDsim.c:  regenerated.
+	* c/wall.c:  regenerated.
+	* c/wallh.c:  regenerated.
+	* c/wallv.c:  regenerated.
+	* python/pge.py:  introduced local_fps.
+	* examples:  use pge.local_fps instead of per file implementation.
+	* Release 4.0.
+	* debian/control:  corrected dependancies for Python3.
+	* Makefile.in:  removed python compile commands.
+
+2019-01-26      Gaius Mulley <gaius.mulley@southwales.ac.uk>
+
+	* m2/twoDsim.mod:  fixed many polygon/polygon.
+	  (checkFrameInterpenPolygonPolygon)  New procedure.
+          Many new procedures implemented and general tidying up.
+	* m2/rotation.mod:  New file.
+	* examples/rotation/rotation.py:  New file.
+
+2019-01-18      Gaius Mulley <gaius.mulley@southwales.ac.uk>
+
+	* m2/twoDsim.mod:  added broadphase hooks and data
+	  structures.  Worked on frame based interpen.
+
+2019-01-17      Gaius Mulley <gaius@gnu.org>
+
+	* added test code to m2.
+	* examples/frozenbubble/frozenbubble.py:
+          New file.
+
+2019-01-06      Gaius Mulley <gaius@gnu.org>
+
+	* m2/interpen.mod:  New file.
+	* m2/interpen.def:  New file.
+	* m2/segment.def:  New file.
+	* m2/segment.mod:  New file.
+
+2018-09-11      Gaius Mulley <gaius@gnu.org>
+
+	* c/Fractions.c:  regenerated.
+	* c/GC.c:  regenerated.
+	* c/GFractions.h:  regenerated.
+	* c/GGC.h:  regenerated.
+	* c/GM2RTS.h:  regenerated.
+	* c/GNetworkOrder.h:  regenerated.
+	* c/GPoints.h:  regenerated.
+	* c/GPolyMatrix3D.h:  regenerated.
+	* c/GTransform3D.h:  regenerated.
+	* c/Gcbuiltin.h:  regenerated.
+	* c/Gcoord.h:  regenerated.
+	* c/Gdelay.h:  regenerated.
+	* c/GdeviceGroff.h:  regenerated.
+	* c/GdeviceIf.h:  regenerated.
+	* c/GdevicePy.h:  regenerated.
+	* c/Ghistory.h:  regenerated.
+	* c/GmacroObjects.h:  regenerated.
+	* c/Gpgeif.h:  regenerated.
+	* c/Gpolar.h:  regenerated.
+	* c/GpopWorld.h:  regenerated.
+	* c/Groots.h:  regenerated.
+	* c/Grpc.h:  regenerated.
+	* c/GtwoDsim.h:  regenerated.
+	* c/Indexing.c:  regenerated.
+	* c/M2RTS.c:  regenerated.
+	* c/Makefile.am:  regenerated.
+	* c/Makefile.in:  regenerated.
+	* c/MemStream.c:  regenerated.
+	* c/NetworkOrder.c:  regenerated.
+	* c/Points.c:  regenerated.
+	* c/PolyMatrix3D.c:  regenerated.
+	* c/RTExceptions.c:  regenerated.
+	* c/RTgen.c:  regenerated.
+	* c/RawIO.c:  regenerated.
+	* c/Storage.c:  regenerated.
+	* c/Transform3D.c:  regenerated.
+	* c/bagatelle.c:  regenerated.
+	* c/bounce.c:  regenerated.
+	* c/bounce2.c:  regenerated.
+	* c/bounce3.c:  regenerated.
+	* c/bounce4.c:  regenerated.
+	* c/bounce5.c:  regenerated.
+	* c/boxes.c:  regenerated.
+	* c/circle.c:  regenerated.
+	* c/coord.c:  regenerated.
+	* c/delay.c:  regenerated.
+	* c/deviceGroff.c:  regenerated.
+	* c/deviceIf.c:  regenerated.
+	* c/elc.c:  regenerated.
+	* c/elc2.c:  regenerated.
+	* c/foo.c:  regenerated.
+	* c/history.c:  regenerated.
+	* c/line.c:  regenerated.
+	* c/macroObjects.c:  regenerated.
+	* c/npn.c:  regenerated.
+	* c/para.c:  regenerated.
+	* c/pgeif.c:  regenerated.
+	* c/polar.c:  regenerated.
+	* c/popWorld.c:  regenerated.
+	* c/ramps.c:  regenerated.
+	* c/ramps2.c:  regenerated.
+	* c/rboxes.c:  regenerated.
+	* c/roots.c:  regenerated.
+	* c/rpc.c:  regenerated.
+	* c/slope.c:  regenerated.
+	* c/snooker.c:  regenerated.
+	* c/stairs.c:  regenerated.
+	* c/test.c:  regenerated.
+	* c/testpy.c:  regenerated.
+	* c/twoDsim.c:  regenerated.
+	* c/wall.c:  regenerated.
+	* c/wallh.c:  regenerated.
+	* c/wallv.c:  regenerated.
+	* c/world.c:  regenerated.
+	* examples/springs/bridge.py:  updated example.
+	* i/pgeif.i:  extended interface to include unfix and is_fixed.
+	* m2/Makefile.am:  changed for gm2-1.8.2. (gcc-8.2.0).
+	* m2/Makefile.in:  regenerated.
+	* m2/pgeif.def:  export unfix and is_fixed.
+	* m2/pgeif.mod:  implement unfix and is_fixed.
+	* m2/roots.mod:  avoid comparision between a and 0.0.
+	* m2/twoDsim.def:  export unfix and is_fixed.
+	* m2/twoDsim.mod:  many bug fixes and tidying up of the spring code.
+
+2018-02-05      Gaius Mulley <gaius@gnu.org>
+
+	* examples/springs/bridge.py:  added second circle.
+	* c/GM2RTS.h:  regenerated.
+        * c/Gcbuiltin.h:  regenerated.
+	* c/M2RTS.c:  regenerated.
+	* c/RTgen.c:  regenerated.
+	* c/coord.c:  regenerated.
+	* c/twoDsim.c:  regenerated.
+	* m2/twoDsim.mod:  do not apply drag to a sprung object if
+          the spring based acceleration is 0.
+	* m2/Makefile.am:  remove -O2.
+	* m2/Makefile.in:  regenerated.
+	* m2/twoDsim.mod:  call addNextObjectEvent at the
+          end of drawFrame.
+	* m2/twoDsim.mod:  undo above fix for now.
+
+2018-01-28      Gaius Mulley <gaius@gnu.org>
+
+	* c/GC.c:  regenerated.
+	* c/StrIO.c:  regenerated.
+	* c/deviceGroff.c:  regenerated.
+	* Makefile.am:  copy src-c/Gwrapsoc.c into c under maintainer.
+
+2018-01-27      Gaius Mulley <gaius@gnu.org>
+
+	* c/FIO.c:  regenerated with extra comments.
+	* c/Fractions.c:  regenerated with extra comments.
+	* c/GC.c:  regenerated with extra comments.
+	* c/IOChan.c:  regenerated with extra comments.
+	* c/MemStream.c:  regenerated with extra comments.
+	* c/StrIO.c:  regenerated with extra comments.
+	* c/StringConvert.c:  regenerated with extra comments.
+	* c/deviceGroff.c:  regenerated with extra comments.
+	* c/history.c:  regenerated with extra comments.
+	* c/roots.c:  regenerated with extra comments.
+	* c/twoDsim.c:  regenerated with extra comments.
+
+2018-01-26      Gaius Mulley <gaius@gnu.org>
+
+	* c/COROUTINES.c:  regenerated with extra comments.
+	* c/CharClass.c:  regenerated with extra comments.
+	* c/ClientSocket.c:  regenerated with extra comments.
+	* c/DynamicStrings.c:  regenerated with extra comments.
+	* c/EXCEPTIONS.c:  regenerated with extra comments.
+	* c/FIO.c:  regenerated with extra comments.
+	* c/FormatStrings.c:  regenerated with extra comments.
+	* c/Fractions.c:  regenerated with extra comments.
+	* c/GC.c:  regenerated with extra comments.
+	* c/IO.c:  regenerated with extra comments.
+	* c/IOChan.c:  regenerated with extra comments.
+	* c/Indexing.c:  regenerated with extra comments.
+	* c/M2EXCEPTION.c:  regenerated with extra comments.
+	* c/M2RTS.c:  regenerated with extra comments.
+	* c/MathLib0.c:  regenerated with extra comments.
+	* c/MemStream.c:  regenerated with extra comments.
+	* c/NetworkOrder.c:  regenerated with extra comments.
+	* c/NumberIO.c:  regenerated with extra comments.
+	* c/PolyMatrix3D.c:  regenerated with extra comments.
+	* c/RTExceptions.c:  regenerated with extra comments.
+	* c/RTentity.c:  regenerated with extra comments.
+	* c/RTgen.c:  regenerated with extra comments.
+	* c/RTgenif.c:  regenerated with extra comments.
+	* c/RTint.c:  regenerated with extra comments.
+	* c/RawIO.c:  regenerated with extra comments.
+	* c/STextIO.c:  regenerated with extra comments.
+	* c/SWholeIO.c:  regenerated with extra comments.
+	* c/SeqFile.c:  regenerated with extra comments.
+	* c/Storage.c:  regenerated with extra comments.
+	* c/StrIO.c:  regenerated with extra comments.
+	* c/StrLib.c:  regenerated with extra comments.
+	* c/StringConvert.c:  regenerated with extra comments.
+	* c/Strings.c:  regenerated with extra comments.
+	* c/bagatelle.c:  regenerated with extra comments.
+	* c/bounce.c:  regenerated with extra comments.
+	* c/bounce2.c:  regenerated with extra comments.
+	* c/bounce3.c:  regenerated with extra comments.
+	* c/bounce4.c:  regenerated with extra comments.
+	* c/bounce5.c:  regenerated with extra comments.
+	* c/boxes.c:  regenerated with extra comments.
+	* c/circle.c:  regenerated with extra comments.
+	* c/delay.c:  regenerated with extra comments.
+	* c/deviceGroff.c:  regenerated with extra comments.
+	* c/history.c:  regenerated with extra comments.
+	* c/line.c:  regenerated with extra comments.
+	* c/macroObjects.c:  regenerated with extra comments.
+	* c/npn.c:  regenerated with extra comments.
+	* c/pgeif.c:  regenerated with extra comments.
+	* c/polar.c:  regenerated with extra comments.
+	* c/ramps.c:  regenerated with extra comments.
+	* c/ramps2.c:  regenerated with extra comments.
+	* c/rboxes.c:  regenerated with extra comments.
+	* c/roots.c:  regenerated with extra comments.
+	* c/rpc.c:  regenerated with extra comments.
+	* c/slope.c:  regenerated with extra comments.
+	* c/snooker.c:  regenerated with extra comments.
+	* c/stairs.c:  regenerated with extra comments.
+	* c/testpy.c:  regenerated with extra comments.
+	* c/twoDsim.c:  regenerated with extra comments.
+	* c/wall.c:  regenerated with extra comments.
+	* c/wallh.c:  regenerated with extra comments.
+	* c/wallv.c:  regenerated with extra comments.
+
+2018-01-25      Gaius Mulley <gaius@gnu.org>
+
+	* examples/springs/catapult.py:  new example.
+	* python/pge.py:  fixed comment typos.
+
+2018-01-17      Gaius Mulley <gaius@gnu.org>
+
+	* examples/cannon/cannon.py:  corrected finish
+          and timer callback functions to contain parameters.
+	* python/pge.py:  improved comments for the
+	  spring function.
+
+2018-01-10      Gaius Mulley <gaius@gnu.org>
+
+	* python/pge.py:  corrected comment (at_time).
+
+2018-01-09      Gaius Mulley <gaius@gnu.org>
+
+	* Makefile.am:  update to use gm2 based on gcc-6.4.0.
+	* c/Makefile.am:  update to use gm2 based on gcc-6.4.0.
+	* debian/rules:  build package with gm2.
+	* examples/bagatelle/bagatelle.py:  changed call backs
+          to use two parameters.
+	* examples/springs/bridge.py:  disable fps.
+	* examples/springs/treble.py:  disable collision frames.
+	* m2/twoDsim.mod:  use trace boolean to switch trace output
+          on/off.
+	* m2/twoDsim.mod:  fixed bug in (doApplySpringForce) to
+          ensure that a fixed object returns no extra force.
+	* m2/roots.mod:  check against exceeding the array size.
+	* Makefile.am:  use mc from build-svn-trunc.
+	* examples/springs/bridge.py:  reenable fps.
+
+2018-01-07      Gaius Mulley <gaius@gnu.org>
+
+	* pge.texi:  updated to refer to stretch rather than jessie.
+          Changed example call backs to reflect new api.  Added
+          new section on Using Python and PGE.
+	* examples/matchsticks/matchsticks.py:  Changed example
+          call backs to reflect new api
+	* examples/springs/bridge.py:  Changed example
+          call backs to reflect new api
+	* m2/Makefile.am:  added new flag OPT
+	* m2/Makefile.in:  rebuilt.
+	* www/tools/texi2tr/html/platforms.html:  corrected
+          obtaining.
+	* www/tools/texi2tr/src/navigation.py:  bug fix
+	  to detect unknown root menu nodes.
+
+2017-11-14      Gaius Mulley <gaius@gnu.org>
+
+	* COPYING:  (New file).
+	* doc/pge.texi:  fixed timer in breakout example.
+	* m2/Makefile.am:  updated Modula-2 library base location.
+	* doc/pge.texi:  added Libraries section.
+
+2017-07-26      Gaius Mulley <gaius@gnu.org>
+
+	* mxm/springs.mxm:  (New file)
+
+2017-07-20      Gaius Mulley <gaius@gnu.org>
+
+	* m/springs.m:  (New file)
+	* regenerated the C version of the library.
+	* improved spring examples.
+	* added drag to moving objects.
+
+2017-07-10      Gaius Mulley <gaius@gnu.org>
+
+	* i/pgeif.i:  (create_function_event) uses another
+          parameter for a possible object.  (when_spring)
+          new function.
+	* m2/pgeif.def:  (create_function_event) uses another
+          parameter for a possible object.  (when_spring)
+          new function.
+	* m2/pgeif.mod:  (create_function_event) pass through
+          extra parameter.  (when_spring) new function.
+	* m2/twoDsim.mod:  turn off DebugTrace.  Set FrameSprings
+          on.  Add an extra field to fcDesc (param).  New
+          field to spDesc (func).  (doCalcSpringForce) New procedure.
+          (doCalcSpringForce) New procedure.
+          (doApplyForce) New procedure.  Implement frame based
+          physics for springs.  Hide printfs behind trace conditions.
+          Only apply forces for active objects.  Calculate spring
+          length events independantly from each other.  Implement
+          when_spring.
+	* python/pge.py:  (when) New function.  Add optional
+          extra parameter to the function call back
+	  (an object parameter or None if zero).
+
+2017-07-08      Gaius Mulley <gaius@gnu.org>
+
+	* examples/springs/bridge.py:  updated with the new
+	spring api.
+	* examples/springs/double.py:  updated with the new
+	spring api.
+	* examples/springs/simple.py:  updated with the new
+	spring api.
+	* i/pgeif.i:  extra parameter to spring
+	and new debug spring colour routines.
+	* m2/coord.def:  negateCoord (New procedure function).
+	* m2/coord.mod:  negateCoord (New procedure function).
+	* m2/pgeif.def:  extra parameter to spring
+	and new debug spring colour routines.
+	* m2/pgeif.mod:  extra parameter to spring
+	and new debug spring colour routines.
+	* m2/roots.def:  findQuadraticRoots (New procedure
+	function).
+	* m2/roots.mod:  findQuadraticRoots (New procedure
+	function).  Many bug fixes to avoid testing against
+	0.0.
+	* m2/twoDsim.def:  introduce spring debug colours
+	and spring damping.
+	* m2/twoDsim.mod:  implement spring debug colours
+	and spring damping.
+	* python/pge.py:  introduce spring debug colours
+	and spring damping.
+	runme:  remove the execution of the test code.
+
+2017-07-05      Gaius Mulley <gaius@gnu.org>
+
+	* more bugfixes surrounding the springs.
+
+2017-07-04      Gaius Mulley <gaius@gnu.org>
+
+	* introduced the spring objects and simple examples.
+	* minor debugging printf's added.
+
+2017-01-01      Gaius Mulley <gaius@gnu.org>
+	* first release of pge
