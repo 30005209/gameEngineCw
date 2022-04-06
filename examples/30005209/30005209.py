@@ -334,11 +334,16 @@ def delete_me(pge_obj, pge_event):
 
 def chair(x,y,width,height, is_left):
     thickness = 0.01
-    back = pge.box(x,y, thickness, height, copper).fix()
+    if is_left:    
+        back = pge.box(x + width - thickness, y, thickness, height, copper).fix()
+        seat = pge.box(x, y+height/2 -thickness/2, width, thickness, copper).fix()
+        leg = pge.box(x, y, thickness, height/2 - thickness/2, copper).fix()
+    else:
+        back = pge.box(x,y, thickness, height, copper).fix()
+        seat = pge.box(x, y + height / 2, width, thickness, copper).fix()
+        leg = pge.box(x + width - thickness, y, thickness, height/2, copper).fix()   
     back.on_collision (delete_me)
-    seat = pge.box(x, y + height / 2, width, thickness, copper).fix()
     seat.on_collision (delete_me)
-    leg = pge.box(x + width - thickness, y, thickness, height/2, copper).fix()
     leg.on_collision (delete_me)
 
 def display_score():
@@ -404,6 +409,7 @@ def main ():
     pge.register_handler (myquit, [QUIT])
     pge.register_handler (key_pressed, [KEYDOWN])
     chair(0.1,0.1,0.05, 0.05, False)
+    chair(0.2,0.2, 0.05, 0.05, True)
     display_score()
     place_gun()
 
