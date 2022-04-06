@@ -410,7 +410,6 @@ def main ():
     pge.register_handler (key_pressed, [KEYDOWN])
     chair(0.2,0.2,0.05, 0.05, True)
     chair(0.1,0.1,0.05, 0.05, False)
-    chair(0.2,0.2, 0.05, 0.05, True)
     display_score()
     place_gun()
 
