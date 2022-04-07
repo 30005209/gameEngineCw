@@ -357,6 +357,12 @@ EXTERN void set_rotate (unsigned int id, double angle);
 EXTERN void set_colour (unsigned int id, unsigned int c);
 
 /*
+   set_elasticity - sets colour of object, id, to, c.
+*/
+
+EXTERN void set_elasticity (unsigned int id, unsigned double c);
+
+/*
    draw_spring - draw a spring, id, using colour, c, with a width, w.
 */
 

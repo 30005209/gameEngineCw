@@ -378,6 +378,12 @@ void put_yaccel (unsigned int id, double r);
 void set_colour (unsigned int id, unsigned int c);
 
 /*
+   set_elasticity - sets elasticity of object, id, to, elasticity.
+*/
+
+void set_elasticity (unsigned int id, double elasticity);
+
+/*
    draw_spring - draw spring, id, using colour, c, and a width, w.
 */
 
@@ -1426,6 +1432,15 @@ void put_yaccel (unsigned int id, double r)
 void set_colour (unsigned int id, unsigned int c)
 {
   twoDsim_set_colour (lookupDef ((TypeOfDef) object, id), (deviceIf_Colour) lookupDef ((TypeOfDef) colour, c));
+}
+
+/*
+   set_elasticity - sets colour of object, id, to, elasticity.
+*/
+
+void set_elasticity (unsigned int id, double elasticity)
+{
+  twoDsim_set_elasticity (lookupDef ((TypeOfDef) object, id), elasticity);
 }
 
 

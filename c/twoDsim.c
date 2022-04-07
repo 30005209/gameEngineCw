@@ -412,6 +412,13 @@ unsigned int twoDsim_moving_towards (unsigned int id, double x, double y);
 void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour);
 
 /*
+   set_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+void set_elasticity (unsigned int id, double elasticity);
+
+/*
    set_gravity - set the gravity of object, id, to, g.
                  id must be a box or circle.
 */
@@ -10591,6 +10598,31 @@ void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour)
 
       default:
         libc_printf ((char *) "cannot set the colour of this object\\n", 38);
+        break;
+    }
+}
+
+
+/*
+   set_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+void twoDsim_set_elasticity (unsigned int id, double elasticity)
+{
+  Object optr;
+
+  optr = Indexing_GetIndice (objects, id);
+  switch (optr->object)
+    {
+      case polygonOb:
+      case circleOb:
+        optr->elasticity = elasticity;
+        break;
+
+
+      default:
+        libc_printf ((char *) "cannot set the elasticity of this object\\n", 39);
         break;
     }
 }

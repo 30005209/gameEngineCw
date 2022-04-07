@@ -506,6 +506,21 @@ class object:
         self.c = c
         return self
 
+    #
+    #  set_elasticity- Pre-condition:  self is a polygon or circle object.
+    #                  Post-condition:  this object will be displayed in colour, c.
+    #
+    def set_elasticity (self, elasticity):
+        self._check_type ([box_t, circle_t, fb_box_t, fb_circle_t], "set elasticity")
+        #c.elasticity ("first parameter to elasticity is expected to be a double")
+        if self.type in [box_t, circle_t]:
+            pgeif.set_elasticity (self.o, elasticity)
+        else:
+            self.o = self.o [:-1]
+            self.o += [c._get_pgeif_elasticity ()]
+        self.elasticity = elasticity
+        return self
+
 
     #
     #  get_unit_coord - Pre-condition:  object must be a circle.
