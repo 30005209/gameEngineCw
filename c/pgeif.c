@@ -330,6 +330,11 @@ double get_xaccel (unsigned int id);
 double get_yaccel (unsigned int id);
 
 /*
+   set_rotate - change the angle of object id to angle.
+*/
+
+void set_rotate (unsigned int id, double angle);
+/*
    put_xvel - assigns the X velocity of object.
 */
 
@@ -1317,6 +1322,17 @@ double get_xaccel (unsigned int id)
 double get_yaccel (unsigned int id)
 {
   return twoDsim_get_yaccel (lookupDef ((TypeOfDef) object, id));
+  /* static analysis guarentees a RETURN statement will be used before here.  */
+  __builtin_unreachable ();
+}
+
+/*
+   set_rotate - change the angle of object id to angle.
+*/
+
+void set_rotate (unsigned int id, double angle)
+{
+  return twoDsim_set_rotate (lookupDef ((TypeOfDef) object, id), angle);
   /* static analysis guarentees a RETURN statement will be used before here.  */
   __builtin_unreachable ();
 }

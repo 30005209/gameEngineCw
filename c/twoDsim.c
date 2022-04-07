@@ -10473,6 +10473,20 @@ void twoDsim_put_yaccel (unsigned int id, double r)
   up ();
 }
 
+/*
+   set_rotate - assigns the y acceleration of object.
+*/
+
+void twoDsim_set_rotate (unsigned int id, double angle)
+{
+  Object optr;
+  printf("angle of rotation for object %d set to %g\n", id, angle);
+  down ();
+  optr = Indexing_GetIndice (objects, id);
+  checkDeleted (optr);
+  optr->angleOrientation = angle;
+  up ();
+}
 
 /*
    apply_impulse - apply an impulse to object, id,

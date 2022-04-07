@@ -596,7 +596,7 @@ class object:
         return pgeif.put_xaccel (self.o, f)
 
     #
-    #  put_xaccel - Pre-condition:  object must be a circle or polygon.
+    #  put_yaccel - Pre-condition:  object must be a circle or polygon.
     #               Post-condition:  assigns a float, f, as the y
     #               acceleration of this object.
     #
@@ -676,7 +676,17 @@ class object:
     #
     #
     def rotate(self, angle):
-        print("pge.rotate called", angle)           
+        print("pge.rotate called: ", angle)
+        self._check_type ([box_t, circle_t], "change the angle of rotation for the object")
+        return pgeif.set_rotate (self.o, angle)
+    
+    #
+    #   Sets boolean value for visibility
+    #
+    def visibility(on):
+        print("pge.visibility called: ", on))
+        self._check_type ([box_t, circle_t], "change the angle of rotation for the object")
+        return pgeif.set_rotate (self.o, angle)
 
 #
 #  _colspace - convert a float value 0.0..1.0 into integer 0..255.

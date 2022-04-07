@@ -67,6 +67,7 @@ extern "C" double get_xvel (unsigned int id);
 extern "C" double get_yvel (unsigned int id);
 extern "C" double get_xaccel (unsigned int id);
 extern "C" double get_yaccel (unsigned int id);
+extern "C" double set_rotate (unsigned int id, double angle);
 
 extern "C" void apply_impulse (unsigned int id, double x, double y, double m);
 extern "C" int moving_towards (unsigned int id, double x, double y);
@@ -142,6 +143,7 @@ extern "C" double get_xvel (unsigned int id);
 extern "C" double get_yvel (unsigned int id);
 extern "C" double get_xaccel (unsigned int id);
 extern "C" double get_yaccel (unsigned int id);
+extern "C" double set_rotate (unsigned int id, double angle);
 
 extern "C" void apply_impulse (unsigned int id, double x, double y, double m);
 extern "C" int moving_towards (unsigned int id, double x, double y);
