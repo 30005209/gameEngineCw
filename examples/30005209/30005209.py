@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pge, sys
+import pge, sys, math
 from pygame.locals import *
 
 
@@ -247,12 +247,12 @@ def placeBoarders (thickness, color):
     return n, e, s, w
 
 def fire (e, colour):
-    global currentColour, currentCircle
+    global currentColour, currentCircle, gun_angle
     mouse = pge.pyg_to_unit_coord (e.pos)
     currentColour = colour
     currentCircle = pge.circle (0.5, 0.21, 0.03, currentColour).mass (1.0)
     currentCircle.put_yvel (7*mouse[1])
-    currentCircle.put_xvel ((0.5-mouse[0])*-6.0)
+    currentCircle.put_xvel (math.sin(gun_angle/180.0)*-6.0)
 
 
 def fire_circle (e):
@@ -283,6 +283,20 @@ def delete_ball (o, e):
             if i != o:
                 i.rm ()
 
+def fire_bubble_key():
+    global currentCircle, currentColour
+    if currentCircle == None:
+        currentColour = red
+        currentCircle = pge.circle (0.5, 0.21, 0.03, currentColor)
+        currentCircle.mass (1.0)
+        currentCircle.put_yvel(7.0)
+        scale = (gun_angle - 180.0) / 180.0
+        print("scale = ", scale)
+        scale *= -20.0
+        print ("vec =[", scale, ", 7.0]")
+        currentCircle.put_xvel(scale)
+
+
 def fire_bubble ():
     global currentCircle, currentColour
     if currentCircle == None:
@@ -294,17 +308,19 @@ def fire_bubble ():
 
 def key_pressed (e):
     global gun, gun_angle
+    temp_a = gun_angle
     if e.key == K_ESCAPE:
         myquit (e)
     elif e.key == K_UP:
         fire_bubble ()
     elif e.key == K_RIGHT:
-        gun_angle +=10
+        gun_angle +=5
     elif e.key == K_LEFT:
-        gun_angle -=10
-    gun.rotate (gun_angle)
-    gun_angle %=360
-    print(gun_angle)
+        gun_angle -=5
+    if temp_a != gun_angle:
+        gun_angle %=360
+        gun.rotate (gun_angle * math.pi / 180.0)
+        print(gun_angle)
 
 def place_bubble (x, colour):
     global currentColour, currentCircle
@@ -378,6 +394,18 @@ def timer (e = None, f = None):
         previous = pge.text (0.8, 0.9, s, white, 100, 1)
         seconds_left -= 1
 
+def spin_gun():
+    spin_callback()
+
+def spin_callback(e = None, f = None):
+    global gun, gun_angle
+    gun_angle +=1
+    print("called spin_callback, angle=", gun_angle)
+    if gun_angle < 180:
+        pge.at_time (4.0 / 360.0, spin_callback)
+        gun_angle %=360
+        gun.rotate(gun_angle * math.pi / 180.0)
+
 def out_of_time ():
     global loser, winner
     if not winner:
@@ -417,6 +445,7 @@ def main ():
 
     seconds_left = 10 * slowdown
     timer ()
+    spin_gun()
     pge.run (simulatedtime)
     pge.run (10.0)
     pge.finish_record ()

@@ -333,6 +333,12 @@ EXTERN void put_xaccel (unsigned int id, double r);
 EXTERN void put_yaccel (unsigned int id, double r);
 
 /*
+   set_rotate - change the angle of object id to angle.
+*/
+
+EXTERN void set_rotate (unsigned int id, double angle);
+
+/*
    set_colour - sets colour of object, id, to, c.
 */
 
