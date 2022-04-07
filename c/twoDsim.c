@@ -232,6 +232,7 @@ struct _T2_r {
                unsigned int stationary;
                unsigned int visible;
                double gravity;
+               double elasticity;
                coord_Coord saccel;
                coord_Coord forceVec;
                double vx;
@@ -1350,7 +1351,7 @@ static void inElasticSpring (double *v);
    inElastic -
 */
 
-static void inElastic (double *v);
+static double inElastic (Object o, double v);
 
 /*
    nearZeroVelocity - returns TRUE if, r, is close to 0.0
@@ -2760,6 +2761,7 @@ static unsigned int newObject (ObjectType type)
   optr->visible = TRUE;
   optr->saccel = coord_initCoord (0.0, 0.0);
   optr->gravity = 0.0;
+  optr->elasticity = Elasticity;
   optr->forceVec = coord_initCoord (0.0, 0.0);
   optr->object = type;
   optr->vx = 0.0;
@@ -4108,11 +4110,11 @@ static void applyDrag (unsigned int id, coord_Coord a)
       o = Indexing_GetIndice (objects, id);
       if (! (roots_nearZero (a.x)))
         {
-          inElastic (&o->vx);
+          o->vx = inElastic (o, o->vx);
         }
       if (! (roots_nearZero (a.y)))
-        {
-          inElastic (&o->vy);
+        {          
+          o->vy = inElastic (o, o->vy);
         }
     }
 }
@@ -5596,10 +5598,11 @@ static void inElasticSpring (double *v)
    inElastic -
 */
 
-static void inElastic (double *v)
+static double inElastic (Object o, double v)
 {
-  (*v) = (*v)*Elasticity;
-  checkZero (v);
+  v = v *o->elasticity;
+  checkZero (&v);
+  return v;
 }
 
 
@@ -5633,8 +5636,8 @@ static void checkStationary (Object o)
     {
       if (! o->fixed)
         {
-          inElastic (&o->vx);
-          inElastic (&o->vy);
+          o->vx = inElastic (o, o->vx);
+          o->vy = inElastic (o, o->vy);
         }
       /* 
             stationary := nearZeroVelocity (vx) AND nearZeroVelocity (vy) AND
