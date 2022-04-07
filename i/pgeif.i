@@ -43,6 +43,8 @@ extern "C" void create_function_event (double t, unsigned int id, unsigned int p
 
 extern "C" void process_event (void);
 extern "C" unsigned int rotate (unsigned int id, double angle);
+extern "C" unsigned int is_visible (unsigned int id);
+extern "C" unsigned int visibility (unsigned int id, unsigned int on);
 extern "C" unsigned int accel (unsigned int id, double ax, double ay);
 extern "C" unsigned int velocity (unsigned int id, double vx, double vy);
 extern "C" unsigned int spring (unsigned int id1, unsigned int id2, double k, double d, double l);
@@ -119,6 +121,8 @@ extern "C" void create_function_event (double t, unsigned int id, unsigned int p
 
 extern "C" void process_event (void);
 extern "C" unsigned int rotate (unsigned int id, double angle);
+extern "C" unsigned int is_visible (unsigned int id);
+extern "C" unsigned int visibility (unsigned int id, unsigned int on);
 extern "C" unsigned int accel (unsigned int id, double ax, double ay);
 extern "C" unsigned int velocity (unsigned int id, double vx, double vy);
 extern "C" unsigned int spring (unsigned int id1, unsigned int id2, double k, double d, double l);

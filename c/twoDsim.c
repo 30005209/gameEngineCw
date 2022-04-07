@@ -230,6 +230,7 @@ struct _T2_r {
                unsigned int deleted;
                unsigned int fixed;
                unsigned int stationary;
+               unsigned int visible;
                double gravity;
                coord_Coord saccel;
                coord_Coord forceVec;
@@ -510,6 +511,17 @@ unsigned int twoDsim_accel (unsigned int id, double ax, double ay);
 
 unsigned int twoDsim_rotate (unsigned int id, double angle);
 
+/*
+   is_visible - Gets boolean value for visibility.
+*/
+
+unsigned int twoDsim_is_visible (unsigned int id);
+
+/*
+   visibility - Sets boolean value for visibility
+*/
+
+unsigned int twoDsim_visibility (unsigned int id, unsigned int on);
 /*
    rvel - gives object, id, an angular velocity, angle.
 */
@@ -2745,6 +2757,7 @@ static unsigned int newObject (ObjectType type)
   optr->deleted = FALSE;
   optr->fixed = FALSE;
   optr->stationary = FALSE;
+  optr->visible = TRUE;
   optr->saccel = coord_initCoord (0.0, 0.0);
   optr->gravity = 0.0;
   optr->forceVec = coord_initCoord (0.0, 0.0);
@@ -5080,7 +5093,7 @@ static void drawFrame (eventQueue e)
   while (i <= n)
     {
       optr = Indexing_GetIndice (objects, i);
-      if ((optr != NULL) && ! optr->deleted)
+      if ((optr != NULL) && (! optr->deleted) && (optr->visible))
         {
           if (Debugging)
             {
@@ -10981,7 +10994,25 @@ unsigned int twoDsim_rotate (unsigned int id, double angle)
   /* static analysis guarentees a RETURN statement will be used before here.  */
   __builtin_unreachable ();
 }
+/*
+   is_visible - Gets boolean value for visibility.
+*/
 
+unsigned int twoDsim_is_visible (unsigned int id)
+{
+    return TRUE;
+}
+
+/*
+   visibility - Sets boolean value for visibility
+*/
+
+unsigned int twoDsim_visibility (unsigned int id, unsigned int on)
+{
+    Object optr = Indexing_GetIndice(objects, id);
+    optr->visible = on;
+    return id;
+}
 
 /*
    rvel - gives object, id, an angular velocity, angle.

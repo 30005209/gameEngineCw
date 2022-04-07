@@ -209,6 +209,18 @@ EXTERN unsigned int accel (unsigned int id, double ax, double ay);
 EXTERN unsigned int rotate (unsigned int id, double angle);
 
 /*
+   is_visible - Gets boolean value for visibility.
+*/
+
+EXTERN unsigned int is_visible (unsigned int id);
+
+/*
+   visibility - Sets boolean value for visibility
+*/
+
+EXTERN unsigned int visibility (unsigned int id, unsigned int on);
+
+/*
    is_collision - returns TRUE if next event is a collision event.
 */
 

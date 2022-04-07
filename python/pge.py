@@ -683,11 +683,18 @@ class object:
     #
     #   Sets boolean value for visibility
     #
-    def visibility(on):
-        print("pge.visibility called: ", on))
-        self._check_type ([box_t, circle_t], "change the angle of rotation for the object")
-        return pgeif.set_rotate (self.o, angle)
-
+    def visibility(self, on):
+        print("pge.visibility called: ", on)
+        self._check_type ([box_t, circle_t], "change the visibility of the object")
+        return pgeif.visibility (self.o, on)
+    
+    #
+    #   Gets boolean value for visibility
+    #
+    def is_visible(self):
+        print("pge.is_visible called")
+        self._check_type ([box_t, circle_t], "get the visibility of the object")
+        return pgeif.is_visible (self.o)
 #
 #  _colspace - convert a float value 0.0..1.0 into integer 0..255.
 #

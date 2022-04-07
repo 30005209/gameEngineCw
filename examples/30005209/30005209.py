@@ -404,7 +404,7 @@ def spin_callback(e = None, f = None):
     if gun_angle < 180:
         pge.at_time (4.0 / 360.0, spin_callback)
         gun_angle %=360
-        gun.rotate(gun_angle * math.pi / 180.0)
+        gun.rotate(gun_angle * math.pi / 180.0)    
 
 def out_of_time ():
     global loser, winner
@@ -442,7 +442,6 @@ def main ():
     place_gun()
 
     createLevel ()
-
     seconds_left = 10 * slowdown
     timer ()
     spin_gun()
