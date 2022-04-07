@@ -267,6 +267,18 @@ EXTERN unsigned int twoDsim_accel (unsigned int id, double ax, double ay);
 EXTERN unsigned int twoDsim_rotate (unsigned int id, double angle);
 
 /*
+   is_visible - Gets boolean value for visibility.
+*/
+
+EXTERN unsigned int twoDsim_is_visible (unsigned int id);
+
+/*
+   visibility - Sets boolean value for visibility
+*/
+
+EXTERN unsigned int twoDsim_visibility (unsigned int id, unsigned int on);
+
+/*
    rvel - gives object, id, an angular velocity, angle.
 */
 

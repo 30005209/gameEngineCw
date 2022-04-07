@@ -228,8 +228,21 @@ unsigned int accel (unsigned int id, double ax, double ay);
 unsigned int rotate (unsigned int id, double angle);
 
 /*
+   is_visible - Gets boolean value for visibility.
+*/
+
+unsigned int is_visible (unsigned int id);
+
+/*
+   visibility - Sets boolean value for visibility
+*/
+
+unsigned int visibility (unsigned int id, unsigned int on);
+
+/*
    fps - set frames per second.
 */
+
 
 unsigned int is_collision (void);
 
@@ -1129,6 +1142,34 @@ unsigned int rotate (unsigned int id, double angle)
   __builtin_unreachable ();
 }
 
+/*
+   is_visible - Gets boolean value for visibility.
+*/
+
+unsigned int is_visible (unsigned int id)
+{
+  unsigned int ti;
+
+  if(twoDsim_is_visible (lookupDef ((TypeOfDef) object, id)))
+    return 1;
+  else
+    return 0;
+  /* static analysis guarentees a RETURN statement will be used before here.  */
+  __builtin_unreachable ();
+}
+/*
+   visibility - Sets boolean value for visibility
+*/
+
+unsigned int visibility (unsigned int id, unsigned int on)
+{
+  unsigned int ti;
+
+  ti = twoDsim_visibility (lookupDef ((TypeOfDef) object, id), on);
+  return id;
+  /* static analysis guarentees a RETURN statement will be used before here.  */
+  __builtin_unreachable ();
+}
 
 /*
    fps - set frames per second.
