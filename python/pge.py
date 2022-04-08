@@ -506,6 +506,22 @@ class object:
         self.c = c
         return self
 
+    #
+    #  set_elasticity- Pre-condition:  self is a polygon or circle object.
+    #                  Post-condition:  this object will be displayed in colour, c.
+    #
+    def set_elasticity (self, elasticity):
+        self._check_type ([box_t, circle_t], "change the elasticity for the object")
+        print("pge: ", elasticity)
+        return pgeif.set_elasticity (self.o, elasticity)
+    #
+    #  get_elasticity- Pre-condition:  self is a polygon or circle object.
+    #                  Post-condition:  this object will be displayed in colour, c.
+    #
+    def get_elasticity (self):
+        self._check_type ([box_t, circle_t, fb_box_t, fb_circle_t], "get elasticity")
+        return pgeif.get_elasticity(self.o)
+
 
     #
     #  get_unit_coord - Pre-condition:  object must be a circle.

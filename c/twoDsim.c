@@ -232,6 +232,7 @@ struct _T2_r {
                unsigned int stationary;
                unsigned int visible;
                double gravity;
+               double elasticity;
                coord_Coord saccel;
                coord_Coord forceVec;
                double vx;
@@ -409,6 +410,21 @@ unsigned int twoDsim_moving_towards (unsigned int id, double x, double y);
 */
 
 void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour);
+
+/*
+   set_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+void set_elasticity (unsigned int id, double elasticity);
+
+/*
+   get_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+double get_elasticity (unsigned int id);
+
 
 /*
    set_gravity - set the gravity of object, id, to, g.
@@ -1350,7 +1366,7 @@ static void inElasticSpring (double *v);
    inElastic -
 */
 
-static void inElastic (double *v);
+static double inElastic (Object o, double v);
 
 /*
    nearZeroVelocity - returns TRUE if, r, is close to 0.0
@@ -2760,6 +2776,7 @@ static unsigned int newObject (ObjectType type)
   optr->visible = TRUE;
   optr->saccel = coord_initCoord (0.0, 0.0);
   optr->gravity = 0.0;
+  optr->elasticity = Elasticity;
   optr->forceVec = coord_initCoord (0.0, 0.0);
   optr->object = type;
   optr->vx = 0.0;
@@ -4108,11 +4125,11 @@ static void applyDrag (unsigned int id, coord_Coord a)
       o = Indexing_GetIndice (objects, id);
       if (! (roots_nearZero (a.x)))
         {
-          inElastic (&o->vx);
+          o->vx = inElastic (o, o->vx);
         }
       if (! (roots_nearZero (a.y)))
-        {
-          inElastic (&o->vy);
+        {          
+          o->vy = inElastic (o, o->vy);
         }
     }
 }
@@ -5596,10 +5613,11 @@ static void inElasticSpring (double *v)
    inElastic -
 */
 
-static void inElastic (double *v)
+static double inElastic (Object o, double v)
 {
-  (*v) = (*v)*Elasticity;
-  checkZero (v);
+  v = v *o->elasticity;
+  checkZero (&v);
+  return v;
 }
 
 
@@ -5633,8 +5651,8 @@ static void checkStationary (Object o)
     {
       if (! o->fixed)
         {
-          inElastic (&o->vx);
-          inElastic (&o->vy);
+          o->vx = inElastic (o, o->vx);
+          o->vy = inElastic (o, o->vy);
         }
       /* 
             stationary := nearZeroVelocity (vx) AND nearZeroVelocity (vy) AND
@@ -10590,6 +10608,58 @@ void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour)
         libc_printf ((char *) "cannot set the colour of this object\\n", 38);
         break;
     }
+}
+
+
+/*
+   set_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+void twoDsim_set_elasticity (unsigned int id, double elasticity)
+{
+  Object optr;
+
+  optr = Indexing_GetIndice (objects, id);
+  switch (optr->object)
+    {
+      case polygonOb:
+      case circleOb:
+        optr->elasticity = elasticity;
+        break;
+
+
+      default:
+        libc_printf ((char *) "cannot set the elasticity of this object\\n", 39);
+        break;
+    }
+}
+
+
+/*
+   get_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+double twoDsim_get_elasticity (unsigned int id)
+{
+  Object optr;
+
+  optr = Indexing_GetIndice (objects, id);
+  switch (optr->object)
+    {
+      case polygonOb:
+      case circleOb:
+        return optr->elasticity;
+        break;
+
+
+      default:
+        libc_printf ((char *) "cannot get the elasticity of this object\\n", 39);
+        break;
+    }
+  ReturnException ("../git-pge/m2/twoDsim.def", 2, 1);
+  __builtin_unreachable ();
 }
 
 

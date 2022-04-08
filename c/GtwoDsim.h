@@ -168,6 +168,13 @@ EXTERN unsigned int twoDsim_moving_towards (unsigned int id, double x, double y)
 EXTERN void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour);
 
 /*
+   set_elasticity - set the elasticity of object, id, to colour.
+                id must be a box or circle.
+*/
+
+EXTERN void twoDsim_set_elasticity (unsigned int id, double elasticity);
+
+/*
    set_gravity - set the gravity of object, id, to, g.
                  id must be a box or circle.
 */

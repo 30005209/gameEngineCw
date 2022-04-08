@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pge, sys, math
+import pge, sys, math, random
 from pygame.locals import *
 
 
@@ -40,7 +40,7 @@ currentColour = None
 
 def printColour (c):
     global colourNames
-    print(colourNames[c], end=' ')
+    #print(colourNames[c], end=' ')
 
 
 #
@@ -199,25 +199,36 @@ def bubble_hits_bubble (o, e):
         currentCircle = None
     dumpData ("end of bubble_hits_bubble")
 
-
 print("starting frozenbubble")
 pge.interactive ()
 # pge.batch ()
 pge.record ()
 
-white = pge.rgb (1.0, 1.0, 1.0)
 t = pge.rgb (1.0/2.0, 2.0/3.0, 3.0/4.0)
-wood_light = pge.rgb (166.0/256.0, 124.0/256.0, 54.0/256.0)
-wood_dark = pge.rgb (76.0/256.0, 47.0/256.0, 0.0)
-red = pge.rgb (0.65, 0.1, 0.2)
-steel = pge.rgb (0.5, 0.5, 0.5)
-copper = pge.rgb (0.5, 0.3, 0.2)
-gold = pge.rgb (0.8, 0.6, 0.15)
+#wood_light = pge.rgb (166.0/256.0, 124.0/256.0, 54.0/256.0)
+#wood_dark = pge.rgb (76.0/256.0, 47.0/256.0, 0.0)
+#red = pge.rgb (0.65, 0.1, 0.2)
+#steel = pge.rgb (0.5, 0.5, 0.5)
+#copper = pge.rgb (0.5, 0.3, 0.2)
+#gold = pge.rgb (0.8, 0.6, 0.15)
 ball_size = 0.02
 boarder = 0.01
-green = pge.rgb (0.1, 0.6, 0.2)
-# blue = pge.rgb (0.0, 0.0, 1.0)
-blue = pge.rgb (0.0, 100.0/255.0, 1.0)
+#green = pge.rgb (0.1, 0.6, 0.2)
+#blue = pge.rgb (0.0, 0.0, 1.0)
+#blue = pge.rgb (0.0, 100.0/255.0, 1.0)
+
+# colours
+white       = pge.rgb(1.00, 1.00, 1.00)
+dark_blue   = pge.rgb(0.17, 0.24, 0.31)
+blue        = pge.rgb(0.16, 0.50, 0.73)
+green       = pge.rgb(0.15, 0.68, 0.38)
+red         = pge.rgb(0.75, 0.22, 0.17)
+cloud       = pge.rgb(0.96, 0.94, 0.95)
+silver      = pge.rgb(0.74, 0.76, 0.78)
+concrete    = pge.rgb(0.58, 0.65, 0.65)
+abestos     = pge.rgb(0.50, 0.55, 0.55)
+orange      = pge.rgb(0.95, 0.61, 0.07)
+
 gap = 0.01
 previous = None
 seconds_left = None
@@ -225,14 +236,23 @@ bonus = None
 score = 0
 back = None
 scoreboard = None
+loading = None
 gun = None
 gun_angle = 0
+gun_type_cur = 1
+can_fire = True
 
 slowdown = 5
 simulatedtime = 60
-colourNames = { green: "green",
-                red  : "red",
-                blue : "blue" }
+colourNames = { dark_blue   : "dark_blue",
+                blue        : "blue",
+                green       : "green",
+                red         : "red",
+                cloud       : "cloud",
+                silver      : "silver",
+                concrete    : "concrete" ,
+                abestos     : "abestos",
+                orange      : "orange"  }
 
 
 def finish_game (event, param):
@@ -266,8 +286,9 @@ def fire_circle (e):
 
 def mouse_press (e):
     global currentCircle, currentColour
-    if currentCircle == None:
-        fire_circle (e)
+    print(pge.pyg_to_unit_coord (e.pos))
+    #if currentCircle == None:
+    #    fire_circle (e)
 
 
 def myquit (e):
@@ -276,29 +297,33 @@ def myquit (e):
     sys.exit (0)
 
 def delete_ball (o, e):
+    global score
     print("delete_ball called")
     p = e.collision_between ()
     if p != None and p != []:
         for i in p:
             if i != o:
+                update_score(10)
                 i.rm ()
 
 def fire_bubble_key():
-    global currentCircle, currentColour
+    global currentCircle, currentColour, gun
     if currentCircle == None:
-        currentColour = red
-        currentCircle = pge.circle (0.5, 0.21, 0.03, currentColor)
+        currentColour = gun.get_colour()
+        currentCircle = pge.circle (0.5, 0.21, 0.03, currentColour)
         currentCircle.mass (1.0)
         currentCircle.put_yvel(7.0)
+        currentCircle.set_elasticity(gun.get_elasticity())
+        print(gun.get_elasticity())
         scale = (gun_angle - 180.0) / 180.0
-        print("scale = ", scale)
+        #print("scale = ", scale)
         scale *= -20.0
-        print ("vec =[", scale, ", 7.0]")
+        #print ("vec =[", scale, ", 7.0]")
         currentCircle.put_xvel(scale)
-
+        update_score(-5)
 
 def fire_bubble ():
-    global currentCircle, currentColour
+    global currentCircle, currentColour, score
     if currentCircle == None:
         currentColour = red
         currentCircle = pge.circle (0.5, 0.1, 0.03, currentColour)
@@ -306,30 +331,71 @@ def fire_bubble ():
         currentCircle.put_yvel (8.0)
         # pge.dump_world ()
 
+def reload(e = None, f = None):
+    global gun, can_fire
+    display_fire()
+    can_fire = True
+
+def increment_gun():
+    global gun_type_cur
+    gun_type_cur += 1
+    if gun_type_cur > 3:
+        gun_type_cur = 1
+    change_gunType(gun_type_cur)
+
 def key_pressed (e):
-    global gun, gun_angle
+    global gun, gun_angle, gun_types, gun_type_cur, can_fire
     temp_a = gun_angle
     if e.key == K_ESCAPE:
         myquit (e)
+    elif e.key == K_DOWN:
+        increment_gun()
     elif e.key == K_UP:
-        fire_bubble ()
+        if can_fire:
+            fire_bubble_key()
+            display_loading()          
+            can_fire = False
+            pge.at_time(3.0, reload)
     elif e.key == K_RIGHT:
-        gun_angle +=5
+        gun_angle += 5
     elif e.key == K_LEFT:
-        gun_angle -=5
+        gun_angle -= 5
+    if gun_angle < 100:
+        gun_angle = 100
+    elif gun_angle > 260:
+        gun_angle = 260
     if temp_a != gun_angle:
         gun_angle %=360
         gun.rotate (gun_angle * math.pi / 180.0)
-        print(gun_angle)
+        #print(gun_angle)
 
 def place_bubble (x, colour):
-    global currentColour, currentCircle
-    currentColour = colour
+    global currentColour, currentCircle, gun
+    if colour == red:
+        change_gunType(1)
+    elif colour == blue:
+        change_gunType(2)
+    elif colour == green:
+        change_gunType(3)
+    currentColour = gun.get_colour()
     currentCircle = pge.circle (0.5, 0.21, 0.03, currentColour).mass (1.0)
     currentCircle.put_yvel (7.0)
     currentCircle.put_xvel ((0.5-x)*-6.0)
     pge.run (0.2)
 
+def change_gunType(new_gun_type):
+    global gun, gun_type
+    gun_type = new_gun_type
+    if gun_type == 1:
+        gun.set_colour(red)
+        gun.set_elasticity(0.98)
+    elif gun_type == 2:
+       gun.set_colour(blue)
+       gun.set_elasticity(0.80)
+    elif gun_type == 3:
+        gun.set_colour(green)
+        gun.set_elasticity(0.70)
+    print("MAIN: ", gun.get_elasticity())
 #
 #
 #
@@ -345,22 +411,32 @@ def display_bonus (e = None, f = None):
 def delete_me(pge_obj, pge_event):
     global score, bonus
     pge_obj.rm()
-    update_score(15)
-    display_bonus()
+    update_score(2)
+    #display_bonus()
 
 def chair(x,y,width,height, is_left):
     thickness = 0.01
     if is_left:    
-        back = pge.box(x + width - thickness, y, thickness, height, copper).fix()
-        seat = pge.box(x, y+height/2 -thickness/2, width, thickness, copper).fix()
-        leg = pge.box(x, y, thickness, height/2 - thickness/2, copper).fix()
+        back = pge.box(x + width - thickness, y, thickness, height, cloud).fix()
+        seat = pge.box(x, y+height/2 -thickness/2, width, thickness, cloud).fix()
+        leg = pge.box(x, y, thickness, height/2 - thickness/2, cloud).fix()
     else:
-        back = pge.box(x,y, thickness, height, copper).fix()
-        seat = pge.box(x, y + height / 2, width, thickness, copper).fix()
-        leg = pge.box(x + width - thickness, y, thickness, height/2, copper).fix()   
+        back = pge.box(x,y, thickness, height, cloud).fix()
+        seat = pge.box(x, y + height / 2, width, thickness, cloud).fix()
+        leg = pge.box(x + width - thickness, y, thickness, height/2, cloud).fix()   
     back.on_collision (delete_me)
     seat.on_collision (delete_me)
     leg.on_collision (delete_me)
+
+def board(x,y):
+    width, height = 0.6, 0.05
+    thickness = 0.05
+    pge.box(x,y, width, height, orange).fix()
+
+def net(x,y):
+    width, height = 1.0, 0.005
+    thickness = 0.05
+    pge.box(x,y, width, height, white).fix()
 
 def display_score():
     global score, back, scoreboard
@@ -369,19 +445,42 @@ def display_score():
         scoreboard.rm()
     scoreboard = pge.text(0.01, 1.0, "Score:" + str(score), white, 100, 1)
 
+def display_loading():
+    global score, back, loading
+    back = pge.box(0.01, 0.9, 0.98, 1.0, blue).fix()
+    if loading != None:
+        loading.rm()
+    loading = pge.text(0.65, 1.0, "Loading", white, 100, 1)
+
+def display_fire():
+    global score, back, loading
+    back = pge.box(0.01, 0.9, 0.98, 1.0, blue).fix()
+    if loading != None:
+        loading.rm()
+    loading = pge.text(0.65, 1.0, "Shoot!!", white, 100, 1)
+
+def randomise_gun():
+    change_gunType(random.randrange(1,4))
+
 def update_score(i):
     global score
     score += i
     display_score()
 
 def createLevel ():
-    #for x in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]:
-    #    place_bubble (x, red)
-    #for x in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]:
-    #    place_bubble (x+0.07, red)
-    #for x in [0.3, 0.42, 0.54, 0.66]:
-    #    place_bubble (x, blue)
-    print("tested")
+    global gun
+    for x in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.805]:
+        place_bubble (x, gun.get_colour())
+        increment_gun()        
+    for x in [0.16, 0.27, 0.38, 0.49, 0.60, 0.72]:
+        place_bubble (x+0.07, gun.get_colour())
+        increment_gun()
+    increment_gun()    
+    increment_gun()  
+    for x in [0.25, 0.38, 0.50, 0.62, 0.75]:
+        place_bubble (x, gun.get_colour())
+        increment_gun()
+    #print("tested")
 
 
 def timer (e = None, f = None):
@@ -414,18 +513,35 @@ def out_of_time ():
         pge.at_time (4.0, finish_game)
 
 def place_gun():
-    global gun
+    global gun, gun_angle, gun_type
     thickness = 0.02
     height = 0.1
-    gun = pge.box(0.5, 0.03, thickness, height, copper).fix()
+    gun_angle = 180
+    gun = pge.box(0.5, 0.03, thickness, height, cloud).fix()
+    change_gunType(1)
+
+def elastic_test():
+    net(0.01, 0.01)
+    pge.at_time(0.5,fire_bubble_key())
+    increment_gun()
+    pge.at_time(1.5,fire_bubble_key())
+    increment_gun()
+    pge.at_time(2.5,fire_bubble_key())
+   
+def make_chairs():
+    chair(0.1,0.1,0.05, 0.05, True)
+    chair(0.2,0.2,0.05, 0.05, False) 
+    chair(0.3,0.1,0.05, 0.05, True)
+    chair(0.7,0.1,0.05, 0.05, True) 
+    chair(0.8,0.2,0.05, 0.05, False) 
+    chair(0.9,0.1,0.05, 0.05, True) 
 
 def main ():
-    global g, blue, steel, slowdown, seconds_left
+    global g, concrete, slowdown, seconds_left, gun
 
-    n, e, s, w = placeBoarders (boarder, wood_dark)
+    n, e, s, w = placeBoarders (boarder, concrete)
     s.on_collision (delete_ball)
-    n.on_collision (bubble_hits_bar)
-
+    n.on_collision (bubble_hits_bar)  
     print("before run")
     pge.gravity ()
     pge.dump_world ()
@@ -436,12 +552,15 @@ def main ():
     pge.register_handler (mouse_press, [MOUSEBUTTONDOWN])
     pge.register_handler (myquit, [QUIT])
     pge.register_handler (key_pressed, [KEYDOWN])
-    chair(0.2,0.2,0.05, 0.05, True)
-    chair(0.1,0.1,0.05, 0.05, False)
     display_score()
+    display_fire()
     place_gun()
 
-    createLevel ()
+    make_chairs()
+    #elastic_test()
+    #createLevel ()
+
+
     seconds_left = 10 * slowdown
     timer ()
     spin_gun()
