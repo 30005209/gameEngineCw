@@ -40,8 +40,11 @@ currentColour = None
 
 def printColour (c):
     global colourNames
-    #print(colourNames[c], end=' ')
+    print(colourNames[c], end=' ')
 
+def getColour(c):
+    global colourNames
+    return colourNames[c]
 
 #
 #  dumpData - display all bubble colours and their chains and children
@@ -241,6 +244,7 @@ gun = None
 gun_angle = 0
 gun_type_cur = 1
 can_fire = True
+bound = True
 
 slowdown = 5
 simulatedtime = 60
@@ -285,7 +289,7 @@ def fire_circle (e):
 
 
 def mouse_press (e):
-    global currentCircle, currentColour
+    #global currentCircle, currentColour
     print(pge.pyg_to_unit_coord (e.pos))
     #if currentCircle == None:
     #    fire_circle (e)
@@ -306,8 +310,8 @@ def delete_ball (o, e):
                 update_score(10)
                 i.rm ()
 
-def fire_bubble_key():
-    global currentCircle, currentColour, gun
+def fire_bubble_key(e = None, f = None):
+    global currentCircle, gun, currentColour
     if currentCircle == None:
         currentColour = gun.get_colour()
         currentCircle = pge.circle (0.5, 0.21, 0.03, currentColour)
@@ -336,15 +340,16 @@ def reload(e = None, f = None):
     display_fire()
     can_fire = True
 
-def increment_gun():
+def increment_gun(e = None, f = None):
     global gun_type_cur
     gun_type_cur += 1
     if gun_type_cur > 3:
         gun_type_cur = 1
+    print("GUN INCREMENTED TO: ", gun_type_cur)
     change_gunType(gun_type_cur)
 
 def key_pressed (e):
-    global gun, gun_angle, gun_types, gun_type_cur, can_fire
+    global gun, gun_angle, gun_types, gun_type_cur, can_fire, bound
     temp_a = gun_angle
     if e.key == K_ESCAPE:
         myquit (e)
@@ -360,10 +365,11 @@ def key_pressed (e):
         gun_angle += 5
     elif e.key == K_LEFT:
         gun_angle -= 5
-    if gun_angle < 100:
-        gun_angle = 100
-    elif gun_angle > 260:
-        gun_angle = 260
+    if bound:    
+        if gun_angle < 100:
+            gun_angle = 100
+        elif gun_angle > 260:
+            gun_angle = 260
     if temp_a != gun_angle:
         gun_angle %=360
         gun.rotate (gun_angle * math.pi / 180.0)
@@ -384,7 +390,7 @@ def place_bubble (x, colour):
     pge.run (0.2)
 
 def change_gunType(new_gun_type):
-    global gun, gun_type
+    global gun, gun_type, currentColour
     gun_type = new_gun_type
     if gun_type == 1:
         gun.set_colour(red)
@@ -395,7 +401,7 @@ def change_gunType(new_gun_type):
     elif gun_type == 3:
         gun.set_colour(green)
         gun.set_elasticity(0.70)
-    print("MAIN: ", gun.get_elasticity())
+    print("GUN CHANGE to:", getColour(gun.get_colour()), "|", gun.get_elasticity())
 #
 #
 #
@@ -467,7 +473,7 @@ def update_score(i):
     score += i
     display_score()
 
-def createLevel ():
+def createLevel (e = None, f = None):
     global gun
     for x in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.805]:
         place_bubble (x, gun.get_colour())
@@ -494,16 +500,17 @@ def timer (e = None, f = None):
         seconds_left -= 1
 
 def spin_gun():
+    global bound
+    bound = False
     spin_callback()
 
 def spin_callback(e = None, f = None):
-    global gun, gun_angle
+    global gun, gun_angle, bound
     gun_angle +=1
     print("called spin_callback, angle=", gun_angle)
-    if gun_angle < 180:
-        pge.at_time (4.0 / 360.0, spin_callback)
-        gun_angle %=360
-        gun.rotate(gun_angle * math.pi / 180.0)    
+    pge.at_time (4.0 / 360.0, spin_callback)
+    gun_angle %=360
+    gun.rotate(gun_angle * math.pi / 180.0)
 
 def out_of_time ():
     global loser, winner
@@ -520,13 +527,22 @@ def place_gun():
     gun = pge.box(0.5, 0.03, thickness, height, cloud).fix()
     change_gunType(1)
 
-def elastic_test():
-    net(0.01, 0.01)
-    pge.at_time(0.5,fire_bubble_key())
-    increment_gun()
-    pge.at_time(1.5,fire_bubble_key())
-    increment_gun()
-    pge.at_time(2.5,fire_bubble_key())
+def elastic_test(e = None, f = None):
+    global gun
+    #net(0.01, 0.01)
+    pge.at_time(0.5,fire_bubble_key)
+    pge.at_time(1.5,fire_bubble_key)
+    pge.at_time(2.5,fire_bubble_key)
+    pge.at_time(2.6, increment_gun)
+
+    pge.at_time(4.5,fire_bubble_key)
+    pge.at_time(5.5,fire_bubble_key)
+    pge.at_time(6.5,fire_bubble_key)    
+    pge.at_time(6.6, increment_gun)
+
+    pge.at_time(9.5,fire_bubble_key)
+    pge.at_time(10.5,fire_bubble_key)
+    pge.at_time(11.5,fire_bubble_key)
    
 def make_chairs():
     chair(0.1,0.1,0.05, 0.05, True)
@@ -554,19 +570,24 @@ def main ():
     pge.register_handler (key_pressed, [KEYDOWN])
     display_score()
     display_fire()
+
     place_gun()
-
+    
     make_chairs()
-    #elastic_test()
-    #createLevel ()
-
+    elastic_test()
+    #createLevel()
+    #spin_gun()
+    
 
     seconds_left = 10 * slowdown
     timer ()
-    spin_gun()
+
     pge.run (simulatedtime)
     pge.run (10.0)
     pge.finish_record ()
+
+
+
 
 print("before main()")
 main ()
