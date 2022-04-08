@@ -10591,8 +10591,12 @@ unsigned int twoDsim_moving_towards (unsigned int id, double x, double y)
 void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour)
 {
   Object optr;
-
+    
+  // Get index of object
   optr = Indexing_GetIndice (objects, id);
+
+  // Switch based on kind of object and set appropriate varible to passed colour
+  // variable
   switch (optr->object)
     {
       case polygonOb:
@@ -10603,7 +10607,7 @@ void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour)
         optr->c.col = colour;
         break;
 
-
+    // print error message if cannot be set
       default:
         libc_printf ((char *) "cannot set the colour of this object\\n", 38);
         break;

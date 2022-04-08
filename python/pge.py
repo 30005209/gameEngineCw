@@ -497,7 +497,11 @@ class object:
     #
     def set_colour (self, c):
         self._check_type ([box_t, circle_t, fb_box_t, fb_circle_t], "set_colour")
+    
+        #Check the passed parameter is a colour
         c._param_colour ("first parameter to set_colour is expected to be a colour")
+    
+        #Set the colour
         if self.type in [box_t, circle_t]:
             pgeif.set_colour (self.o, c._get_pgeif_colour ())
         else:
@@ -508,7 +512,7 @@ class object:
 
     #
     #  set_elasticity- Pre-condition:  self is a polygon or circle object.
-    #                  Post-condition:  this object will be displayed in colour, c.
+    #                  Post-condition:  this object will be displayed in elasticity, c.
     #
     def set_elasticity (self, elasticity):
         self._check_type ([box_t, circle_t], "change the elasticity for the object")
@@ -516,12 +520,27 @@ class object:
         return pgeif.set_elasticity (self.o, elasticity)
     #
     #  get_elasticity- Pre-condition:  self is a polygon or circle object.
-    #                  Post-condition:  this object will be displayed in colour, c.
+    #                  Post-condition:  this object will change its elasticity.
     #
     def get_elasticity (self):
         self._check_type ([box_t, circle_t, fb_box_t, fb_circle_t], "get elasticity")
         return pgeif.get_elasticity(self.o)
 
+  #
+    #  set_gravity- Pre-condition:  self is a polygon or circle object.
+    #                  Post-condition:  this object will change its gravity.
+    #
+    def set_gravity (self, gravity):
+        self._check_type ([box_t, circle_t], "change the gravity for the object")
+        print("pge: ", gravity)
+        return pgeif.set_gravity (self.o, gravity)
+    #
+    #  get_elasticity- Pre-condition:  self is a polygon or circle object.
+    #                  Post-condition:  this object will be displayed in colour, c.
+    #
+    def get_gravity (self):
+        self._check_type ([box_t, circle_t, fb_box_t, fb_circle_t], "get gravity")
+        return pgeif.get_gravity(self.o)
 
     #
     #  get_unit_coord - Pre-condition:  object must be a circle.
