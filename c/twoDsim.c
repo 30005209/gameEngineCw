@@ -419,6 +419,14 @@ void twoDsim_set_colour (unsigned int id, deviceIf_Colour colour);
 void set_elasticity (unsigned int id, double elasticity);
 
 /*
+   get_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+double get_elasticity (unsigned int id);
+
+
+/*
    set_gravity - set the gravity of object, id, to, g.
                  id must be a box or circle.
 */
@@ -10625,6 +10633,33 @@ void twoDsim_set_elasticity (unsigned int id, double elasticity)
         libc_printf ((char *) "cannot set the elasticity of this object\\n", 39);
         break;
     }
+}
+
+
+/*
+   get_elasticity - set the elasticity of object, id, to elasticity.
+                id must be a box or circle.
+*/
+
+double twoDsim_get_elasticity (unsigned int id)
+{
+  Object optr;
+
+  optr = Indexing_GetIndice (objects, id);
+  switch (optr->object)
+    {
+      case polygonOb:
+      case circleOb:
+        return optr->elasticity;
+        break;
+
+
+      default:
+        libc_printf ((char *) "cannot get the elasticity of this object\\n", 39);
+        break;
+    }
+  ReturnException ("../git-pge/m2/twoDsim.def", 2, 1);
+  __builtin_unreachable ();
 }
 
 

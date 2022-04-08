@@ -384,6 +384,12 @@ void set_colour (unsigned int id, unsigned int c);
 void set_elasticity (unsigned int id, double elasticity);
 
 /*
+   get_elasticity - sets elasticity of object, id, to, elasticity.
+*/
+
+double get_elasticity (unsigned int id);
+
+/*
    draw_spring - draw spring, id, using colour, c, and a width, w.
 */
 
@@ -1444,6 +1450,14 @@ void set_elasticity (unsigned int id, double elasticity)
 }
 
 
+/*
+   get_elasticity - sets colour of object, id, to, elasticity.
+*/
+
+double get_elasticity (unsigned int id)
+{
+  twoDsim_get_elasticity (lookupDef ((TypeOfDef) object, id));
+}
 /*
    draw_spring - draw spring, id, using colour, c, and a width, w.
 */

@@ -79,6 +79,7 @@ extern "C" void put_xaccel (unsigned int id, double d);
 extern "C" void put_yaccel (unsigned int id, double d);
 extern "C" void set_colour (unsigned int id, unsigned int c);
 extern "C" void set_elasticity (unsigned int id, double elasticity);
+extern "C" double get_elasticity (unsigned int id);
 extern "C" void draw_spring (unsigned int id, unsigned int c, double w);
 extern "C" void end_spring (unsigned int id, unsigned int c);
 extern "C" void mid_spring (unsigned int id, unsigned int c);
@@ -159,6 +160,7 @@ extern "C" void put_yaccel (unsigned int id, double d);
 
 extern "C" void set_colour (unsigned int id, unsigned int c);
 extern "C" void set_elasticity (unsigned int id, double elasticity);
+extern "C" double get_elasticity (unsigned int id);
 extern "C" void draw_spring (unsigned int id, unsigned int c, double w);
 extern "C" void end_spring (unsigned int id, unsigned int c);
 extern "C" void mid_spring (unsigned int id, unsigned int c);

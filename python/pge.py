@@ -511,15 +511,16 @@ class object:
     #                  Post-condition:  this object will be displayed in colour, c.
     #
     def set_elasticity (self, elasticity):
-        self._check_type ([box_t, circle_t, fb_box_t, fb_circle_t], "set elasticity")
-        #c.elasticity ("first parameter to elasticity is expected to be a double")
-        if self.type in [box_t, circle_t]:
-            pgeif.set_elasticity (self.o, elasticity)
-        else:
-            self.o = self.o [:-1]
-            self.o += [c._get_pgeif_elasticity ()]
-        self.elasticity = elasticity
-        return self
+        self._check_type ([box_t, circle_t], "change the elasticity for the object")
+        print("pge: ", elasticity)
+        return pgeif.set_elasticity (self.o, elasticity)
+    #
+    #  get_elasticity- Pre-condition:  self is a polygon or circle object.
+    #                  Post-condition:  this object will be displayed in colour, c.
+    #
+    def get_elasticity (self):
+        self._check_type ([box_t, circle_t, fb_box_t, fb_circle_t], "get elasticity")
+        return pgeif.get_elasticity(self.o)
 
 
     #
